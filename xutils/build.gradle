@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-def siteUrl = 'https://github.com/wyouflf/xUtils3'
-def gitUrl = 'https://github.com/wyouflf/xUtils3.git'
+def siteUrl = 'https://github.com/Alinvor/xUtils3'
+def gitUrl = 'git@github.com:Alinvor/xUtils3.git'
 group = "org.xutils"
 version = "3.5.0"
 
@@ -46,7 +46,7 @@ install {
             project {
                 packaging 'aar'
                 name 'xUtils'
-                description 'android orm, bitmap, http, view inject... '
+                description 'android orm inject... '
                 // #CONFIG# // project title
                 url siteUrl
                 // Set your license
@@ -58,11 +58,11 @@ install {
                 }
                 developers {
                     developer {
-                        id 'wyouflf'
+                        id 'Alinvor'
                         // #CONFIG# // your user id (you can write your nickname)
-                        name 'lei.jiao'
+                        name 'Alinvor'
                         // #CONFIG# // your user name
-                        email 'wyouflf@qq.com'
+                        email '3086722095@qq.com'
                         // #CONFIG# // your email
                     }
                 }
@@ -99,7 +99,7 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
-        repo = "maven"
+        repo = "AndroidComponent"
         name = "xUtils"
         // #CONFIG# project name in jcenter
         websiteUrl = siteUrl
