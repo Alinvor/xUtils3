@@ -46,6 +46,10 @@ public final class x {
         return getDb(DaoConfigFactory.obtainConfig(Ext.app));
     }
 
+    public static DbManager.DaoConfig obtainConfig() {
+        return DaoConfigFactory.obtainConfig(Ext.app);
+    }
+
     public static class Ext {
 
         private static boolean debug;
