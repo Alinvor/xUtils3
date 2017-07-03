@@ -4,8 +4,7 @@ import android.database.Cursor;
 import android.text.TextUtils;
 
 import org.xutils.DbManager;
-import org.xutils.common.util.IOUtil;
-import org.xutils.common.util.LogUtil;
+import org.xutils.utils.IOUtil;
 import org.xutils.db.sqlite.SqlInfo;
 import org.xutils.db.sqlite.SqlInfoBuilder;
 import org.xutils.ex.DbException;
@@ -57,7 +56,7 @@ public abstract class DbBase implements DbManager {
                         String tableName = cursor.getString(0);
                         execNonQuery("DROP TABLE " + tableName);
                     } catch (Throwable e) {
-                        LogUtil.e(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
 

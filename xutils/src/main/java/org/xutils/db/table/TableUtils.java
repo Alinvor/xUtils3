@@ -15,7 +15,6 @@
 
 package org.xutils.db.table;
 
-import org.xutils.common.util.LogUtil;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.converter.ColumnConverterFactory;
 
@@ -59,7 +58,7 @@ import java.util.LinkedHashMap;
 
             addColumns2Map(entityType.getSuperclass(), columnMap);
         } catch (Throwable e) {
-            LogUtil.e(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 }

@@ -15,7 +15,8 @@
 
 package org.xutils.db.table;
 
-import org.xutils.common.util.LogUtil;
+import android.util.Log;
+
 import org.xutils.db.converter.ColumnConverter;
 import org.xutils.db.converter.ColumnConverterFactory;
 
@@ -24,6 +25,8 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 
 public final class ColumnUtils {
+
+    public static final String TAG = "ColumnUtils";
 
     private ColumnUtils() {
     }
@@ -81,7 +84,7 @@ public final class ColumnUtils {
             try {
                 getMethod = entityType.getDeclaredMethod(methodName);
             } catch (NoSuchMethodException e) {
-                LogUtil.d(entityType.getName() + "#" + methodName + " not exist");
+                Log.d(TAG, entityType.getName() + "#" + methodName + " not exist");
             }
         }
 
@@ -106,7 +109,7 @@ public final class ColumnUtils {
             try {
                 setMethod = entityType.getDeclaredMethod(methodName, fieldType);
             } catch (NoSuchMethodException e) {
-                LogUtil.d(entityType.getName() + "#" + methodName + " not exist");
+                Log.d(TAG, entityType.getName() + "#" + methodName + " not exist");
             }
         }
 
@@ -126,7 +129,7 @@ public final class ColumnUtils {
         try {
             return entityType.getDeclaredMethod(methodName);
         } catch (NoSuchMethodException e) {
-            LogUtil.d(entityType.getName() + "#" + methodName + " not exist");
+            Log.d(TAG, entityType.getName() + "#" + methodName + " not exist");
         }
         return null;
     }
@@ -141,7 +144,7 @@ public final class ColumnUtils {
         try {
             return entityType.getDeclaredMethod(methodName, fieldType);
         } catch (NoSuchMethodException e) {
-            LogUtil.d(entityType.getName() + "#" + methodName + " not exist");
+            Log.d(TAG, entityType.getName() + "#" + methodName + " not exist");
         }
         return null;
     }

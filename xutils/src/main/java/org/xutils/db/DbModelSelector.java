@@ -18,7 +18,7 @@ package org.xutils.db;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import org.xutils.common.util.IOUtil;
+import org.xutils.utils.IOUtil;
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.db.table.DbModel;
 import org.xutils.db.table.TableEntity;

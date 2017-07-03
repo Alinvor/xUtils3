@@ -18,10 +18,10 @@ package org.xutils.db.sqlite;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
-import org.xutils.common.util.KeyValue;
 import org.xutils.db.converter.ColumnConverter;
 import org.xutils.db.converter.ColumnConverterFactory;
 import org.xutils.db.table.ColumnUtils;
+import org.xutils.utils.KeyValue;
 
 import java.util.ArrayList;
 import java.util.List;

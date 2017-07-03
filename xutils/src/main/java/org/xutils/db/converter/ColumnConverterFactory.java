@@ -1,6 +1,5 @@
 package org.xutils.db.converter;
 
-import org.xutils.common.util.LogUtil;
 import org.xutils.db.sqlite.ColumnDbType;
 
 import java.util.Date;
@@ -28,7 +27,7 @@ public final class ColumnConverterFactory {
                 }
                 result = columnConverter;
             } catch (Throwable ex) {
-                LogUtil.e(ex.getMessage(), ex);
+                ex.printStackTrace();
             }
         }
 

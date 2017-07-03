@@ -3,17 +3,9 @@ package org.xutils;
 import android.app.Application;
 import android.content.Context;
 
-import org.xutils.common.TaskController;
-import org.xutils.common.task.TaskControllerImpl;
 import org.xutils.db.DbManagerImpl;
-import org.xutils.http.HttpManagerImpl;
-import org.xutils.image.ImageManagerImpl;
-import org.xutils.view.ViewInjectorImpl;
 
 import java.lang.reflect.Method;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
 
 
 /**
@@ -46,48 +38,23 @@ public final class x {
         return Ext.app;
     }
 
-    public static TaskController task() {
-        return Ext.taskController;
-    }
-
-    public static HttpManager http() {
-        if (Ext.httpManager == null) {
-            HttpManagerImpl.registerInstance();
-        }
-        return Ext.httpManager;
-    }
-
-    public static ImageManager image() {
-        if (Ext.imageManager == null) {
-            ImageManagerImpl.registerInstance();
-        }
-        return Ext.imageManager;
-    }
-
-    public static ViewInjector view() {
-        if (Ext.viewInjector == null) {
-            ViewInjectorImpl.registerInstance();
-        }
-        return Ext.viewInjector;
-    }
-
     public static DbManager getDb(DbManager.DaoConfig daoConfig) {
         return DbManagerImpl.getInstance(daoConfig);
     }
 
+    public static DbManager getDb() {
+        return getDb(DaoConfigFactory.obtainConfig(Ext.app));
+    }
+
     public static class Ext {
+
         private static boolean debug;
         private static Application app;
-        private static TaskController taskController;
-        private static HttpManager httpManager;
-        private static ImageManager imageManager;
-        private static ViewInjector viewInjector;
 
         private Ext() {
         }
 
         public static void init(Application app) {
-            TaskControllerImpl.registerInstance();
             if (Ext.app == null) {
                 Ext.app = app;
             }
@@ -96,31 +63,10 @@ public final class x {
         public static void setDebug(boolean debug) {
             Ext.debug = debug;
         }
-
-        public static void setTaskController(TaskController taskController) {
-            if (Ext.taskController == null) {
-                Ext.taskController = taskController;
-            }
-        }
-
-        public static void setHttpManager(HttpManager httpManager) {
-            Ext.httpManager = httpManager;
-        }
-
-        public static void setImageManager(ImageManager imageManager) {
-            Ext.imageManager = imageManager;
-        }
-
-        public static void setViewInjector(ViewInjector viewInjector) {
-            Ext.viewInjector = viewInjector;
-        }
-
-        public static void setDefaultHostnameVerifier(HostnameVerifier hostnameVerifier) {
-            HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
-        }
     }
 
     private static class MockApplication extends Application {
+
         public MockApplication(Context baseContext) {
             this.attachBaseContext(baseContext);
         }

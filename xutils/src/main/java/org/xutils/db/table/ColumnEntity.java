@@ -17,7 +17,6 @@ package org.xutils.db.table;
 
 import android.database.Cursor;
 
-import org.xutils.common.util.LogUtil;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.converter.ColumnConverter;
 import org.xutils.db.converter.ColumnConverterFactory;
@@ -70,13 +69,13 @@ public final class ColumnEntity {
             try {
                 setMethod.invoke(entity, value);
             } catch (Throwable e) {
-                LogUtil.e(e.getMessage(), e);
+                e.printStackTrace();
             }
         } else {
             try {
                 this.columnField.set(entity, value);
             } catch (Throwable e) {
-                LogUtil.e(e.getMessage(), e);
+                e.printStackTrace();
             }
         }
     }
@@ -100,13 +99,13 @@ public final class ColumnEntity {
             try {
                 setMethod.invoke(entity, idValue);
             } catch (Throwable e) {
-                LogUtil.e(e.getMessage(), e);
+                e.printStackTrace();
             }
         } else {
             try {
                 this.columnField.set(entity, idValue);
             } catch (Throwable e) {
-                LogUtil.e(e.getMessage(), e);
+                e.printStackTrace();
             }
         }
     }
@@ -118,13 +117,13 @@ public final class ColumnEntity {
                 try {
                     fieldValue = getMethod.invoke(entity);
                 } catch (Throwable e) {
-                    LogUtil.e(e.getMessage(), e);
+                    e.printStackTrace();
                 }
             } else {
                 try {
                     fieldValue = this.columnField.get(entity);
                 } catch (Throwable e) {
-                    LogUtil.e(e.getMessage(), e);
+                    e.printStackTrace();
                 }
             }
         }

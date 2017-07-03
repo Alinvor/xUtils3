@@ -21,9 +21,6 @@ import android.database.sqlite.SQLiteStatement;
 import android.os.Build;
 
 import org.xutils.DbManager;
-import org.xutils.common.util.IOUtil;
-import org.xutils.common.util.KeyValue;
-import org.xutils.common.util.LogUtil;
 import org.xutils.db.sqlite.SqlInfo;
 import org.xutils.db.sqlite.SqlInfoBuilder;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -32,6 +29,8 @@ import org.xutils.db.table.DbBase;
 import org.xutils.db.table.DbModel;
 import org.xutils.db.table.TableEntity;
 import org.xutils.ex.DbException;
+import org.xutils.utils.IOUtil;
+import org.xutils.utils.KeyValue;
 import org.xutils.x;
 
 import java.io.File;
@@ -93,7 +92,7 @@ public final class DbManagerImpl extends DbBase {
                     try {
                         dao.dropDb();
                     } catch (DbException e) {
-                        LogUtil.e(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
             }
@@ -510,7 +509,7 @@ public final class DbManagerImpl extends DbBase {
                 try {
                     statement.releaseReference();
                 } catch (Throwable ex) {
-                    LogUtil.e(ex.getMessage(), ex);
+                    ex.printStackTrace();
                 }
             }
         }
@@ -529,7 +528,7 @@ public final class DbManagerImpl extends DbBase {
                 try {
                     statement.releaseReference();
                 } catch (Throwable ex) {
-                    LogUtil.e(ex.getMessage(), ex);
+                    ex.printStackTrace();
                 }
             }
         }
@@ -548,7 +547,7 @@ public final class DbManagerImpl extends DbBase {
                 try {
                     statement.releaseReference();
                 } catch (Throwable ex) {
-                    LogUtil.e(ex.getMessage(), ex);
+                    ex.printStackTrace();
                 }
             }
         }

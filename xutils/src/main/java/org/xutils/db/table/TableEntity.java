@@ -18,7 +18,7 @@ package org.xutils.db.table;
 import android.database.Cursor;
 
 import org.xutils.DbManager;
-import org.xutils.common.util.IOUtil;
+import org.xutils.utils.IOUtil;
 import org.xutils.db.annotation.Table;
 import org.xutils.ex.DbException;
 
