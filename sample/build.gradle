@@ -8,8 +8,8 @@ android {
         applicationId "org.xutils.sample"
         minSdkVersion 14
         targetSdkVersion 22 // 不使用api23的动态权限策略
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
     }
 
     signingConfigs {
@@ -34,7 +34,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support:support-v4:25.3.0'
-    compile 'com.android.support:recyclerview-v7:25.3.0'
-    compile 'com.android.support:design:25.3.0'
     compile project(':xutils')
 }

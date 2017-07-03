@@ -1,18 +1,21 @@
 package org.xutils.sample;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.xutils.DbManager;
-import org.xutils.common.util.KeyValue;
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.db.table.DbModel;
 import org.xutils.ex.DbException;
 import org.xutils.sample.db.Child;
 import org.xutils.sample.db.Parent;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
+import org.xutils.utils.KeyValue;
 import org.xutils.x;
 
 import java.io.File;
@@ -24,8 +27,35 @@ import java.util.List;
 /**
  * Created by wyouflf on 15/11/4.
  */
-@ContentView(R.layout.fragment_db)
-public class DbFragment extends BaseFragment {
+public class DbFragment extends Fragment implements View.OnClickListener {
+
+    private TextView tv_db_result;
+    private Button btn_test_db2;
+    private Button btn_test_db;
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_db, container, false);
+        tv_db_result = (TextView) view.findViewById(R.id.tv_db_result);
+        btn_test_db2 = (Button) view.findViewById(R.id.btn_test_db2);
+        btn_test_db2.setOnClickListener(this);
+        btn_test_db = (Button) view.findViewById(R.id.btn_test_db);
+        btn_test_db.setOnClickListener(this);
+        x.obtainConfig().setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+            @Override
+            public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+                if (newVersion > oldVersion)
+                    try {
+                        db.dropDb();
+                    } catch (DbException e) {
+                        e.printStackTrace();
+                    }
+            }
+        });
+        return view;
+    }
 
     DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
             .setDbName("test.db")
@@ -51,11 +81,20 @@ public class DbFragment extends BaseFragment {
                 }
             });
 
-    @ViewInject(R.id.tv_db_result)
-    private TextView tv_db_result;
 
-    @Event(R.id.btn_test_db)
-    private void onTestDbClick(View view) {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_test_db:
+                onTestDbClick(view);
+                break;
+            case R.id.btn_test_db2:
+                onTestDb2Click(view);
+                break;
+        }
+    }
+
+    public void onTestDbClick(View view) {
 
         // 一对多: (本示例的代码)
         // 自己在多的一方(child)保存另一方的(parentId), 查找的时候用parentId查parent或child.
@@ -68,7 +107,8 @@ public class DbFragment extends BaseFragment {
 
         try {
 
-            DbManager db = x.getDb(daoConfig);
+//            DbManager db = x.getDb(daoConfig); //TODO 方式一
+            DbManager db = x.getDb(); //TODO 方式二
 
             Child child = new Child();
             child.setName("child's name");
@@ -142,14 +182,14 @@ public class DbFragment extends BaseFragment {
         }
     }
 
-    @Event(R.id.btn_test_db2)
-    private void onTestDb2Click(View view) {
+    public void onTestDb2Click(final View view) {
         tv_db_result.setText("wait...");
-        x.task().run(new Runnable() { // 异步执行
+        view.post(new Runnable() { // 异步执行
             @Override
             public void run() {
 
-                DbManager db = x.getDb(daoConfig);
+//                DbManager db = x.getDb(daoConfig); //TODO 方式一
+                DbManager db = x.getDb(); //TODO 方式二
                 String result = "";
 
                 List<Parent> parentList = new ArrayList<Parent>();
@@ -181,11 +221,11 @@ public class DbFragment extends BaseFragment {
                 result += "查找1000条数据:" + (System.currentTimeMillis() - start) + "ms\n";
 
                 start = System.currentTimeMillis();
-                try {
-                    db.delete(parentList);
-                } catch (DbException ex) {
-                    ex.printStackTrace();
-                }
+//                try {
+//                    db.delete(parentList);
+//                } catch (DbException ex) {
+//                    ex.printStackTrace();
+//                }
                 result += "删除1000条数据:" + (System.currentTimeMillis() - start) + "ms\n";
 
                 // 批量插入
@@ -209,13 +249,13 @@ public class DbFragment extends BaseFragment {
 
                 try {
                     parentList = db.selector(Parent.class).orderBy("id", true).limit(1000).findAll();
-                    db.delete(parentList);
+//                    db.delete(parentList);
                 } catch (DbException ex) {
                     ex.printStackTrace();
                 }
 
                 final String finalResult = result;
-                x.task().post(new Runnable() { // UI同步执行
+                view.post(new Runnable() { // UI同步执行
                     @Override
                     public void run() {
                         tv_db_result.setText(finalResult);
@@ -224,5 +264,4 @@ public class DbFragment extends BaseFragment {
             }
         });
     }
-
 }
