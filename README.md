@@ -4,7 +4,7 @@
 
 #### 使用Gradle构建时添加一下依赖即可:
 ```javascript
-compile 'org.xutils.db:xutils:3.5.1'
+compile 'org.xutils.db:xutils:3.5.2'
 ```
 ##### 混淆配置参考示例项目sample的配置
 #### 说明
