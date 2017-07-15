@@ -2,6 +2,7 @@ package org.xutils;
 
 
 import android.content.Context;
+import android.os.Build;
 
 import org.xutils.bean.DBBean;
 import org.xutils.utils.DebugUtils;
@@ -25,7 +26,8 @@ public class DaoConfigFactory {
                         daoConfig.setDbName(dbBean.getName()).setDbDir(context.getDatabasePath(dbBean.getDirectory())).setDbVersion(dbBean.getVersion()).setDbOpenListener(new DbManager.DbOpenListener() {
                             @Override
                             public void onDbOpened(DbManager db) {
-                                db.getDatabase().enableWriteAheadLogging();
+                                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB)
+                                    db.getDatabase().enableWriteAheadLogging();
                             }
                         });
                     }
