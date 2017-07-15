@@ -4,8 +4,9 @@ apply plugin: 'com.jfrog.bintray'
 
 def siteUrl = 'https://github.com/Alinvor/xUtils3'
 def gitUrl = 'git@github.com:Alinvor/xUtils3.git'
+
 group = "org.xutils.db"
-version = "3.5.1"
+version = "3.5.2"
 
 android {
     compileSdkVersion 25
@@ -14,7 +15,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 20170703
+        versionCode 20170715
         versionName version
     }
     buildTypes {
@@ -41,7 +42,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/gson-2.2.2.jar')
+    compile 'com.google.code.gson:gson:2.8.0'
 }
 
 install {
